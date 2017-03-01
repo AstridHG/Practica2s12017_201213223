@@ -75,9 +75,9 @@ try {
         }
        return null;  
 }
-public static String SacarCola(int dato){
+public static String SacarCola(){
   RequestBody formBody = new FormEncodingBuilder()
-                .add("dato", dato + "")
+                .add("dato", "")
                 .build();
 try {
             URL url = new URL("http://0.0.0.0:5000/saleCola");
@@ -91,5 +91,56 @@ try {
             System.out.println(ex.toString());
         }
        return null;  
+}
+public static String IngresarPila(int dato){
+  RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", dato + "")
+                .build();
+try {
+            URL url = new URL("http://0.0.0.0:5000/insertarPila");
+            Request request = new Request.Builder().url(url).post(formBody).build();
+            Response response = webClient.newCall(request).execute();
+            String response_string = response.body().string();//y este seria el string de las respuesta
+            return response_string;
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+       return null;  
+}
+public static String eliminarLista(int dato){
+  RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", dato + "")
+                .build();
+try {
+            URL url = new URL("http://0.0.0.0:5000/eliminarLista");
+            Request request = new Request.Builder().url(url).post(formBody).build();
+            Response response = webClient.newCall(request).execute();
+            String response_string = response.body().string();//y este seria el string de las respuesta
+            return response_string;
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+       return null;  
+}
+public static String SacarPila(){
+  RequestBody formBody = new FormEncodingBuilder()
+                .add("dato", "")
+                .build();
+try {
+            URL url = new URL("http://0.0.0.0:5000/salePila");
+            Request request = new Request.Builder().url(url).post(formBody).build();
+            Response response = webClient.newCall(request).execute();
+            String response_string = response.body().string();//y este seria el string de las respuesta
+            return response_string;
+        } catch (MalformedURLException ex) {
+            System.out.println(ex.toString());
+        } catch (IOException ex) {
+            System.out.println(ex.toString());
+        }
+       return null;
 }
 }

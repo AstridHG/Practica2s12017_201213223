@@ -59,6 +59,11 @@ private  Conec Conectar;
 
         jButton4.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton4.setText("Pila");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jLabel1.setText("Elegir Estructura a Modificar");
@@ -111,6 +116,12 @@ private  Conec Conectar;
         
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+ Pila pila = new Pila(Conectar);
+      pila.setVisible(true);        
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
