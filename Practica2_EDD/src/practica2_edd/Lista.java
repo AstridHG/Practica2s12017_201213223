@@ -10,12 +10,14 @@ package practica2_edd;
  * @author Astrid Hernandez
  */
 public class Lista extends javax.swing.JFrame {
-
+private Conec Conectar;
     /**
      * Creates new form Lista
      */
-    public Lista() {
+    public Lista(Conec Conectar) {
         initComponents();
+      
+        this.Conectar = Conectar;
     }
 
     /**
@@ -37,6 +39,11 @@ public class Lista extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Borrar");
 
@@ -91,8 +98,16 @@ public class Lista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        Conectar.Buscar(jTextField2.getText());
+        jTextField2.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+       Conectar.InsertarLista(jTextField1.getText());
+       jTextField1.setText("");
+      
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,7 +139,7 @@ public class Lista extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Lista().setVisible(true);
+               /// new Lista().setVisible(true);
             }
         });
     }

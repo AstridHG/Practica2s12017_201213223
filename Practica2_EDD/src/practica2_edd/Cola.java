@@ -10,12 +10,13 @@ package practica2_edd;
  * @author Astrid Hernandez
  */
 public class Cola extends javax.swing.JFrame {
-
+private  Conec Conectar;
     /**
      * Creates new form Cola
      */
-    public Cola() {
+    public Cola(Conec Conectar) {
         initComponents();
+         this.Conectar = Conectar;
     }
 
     /**
@@ -43,6 +44,11 @@ public class Cola extends javax.swing.JFrame {
 
         jButton2.setFont(new java.awt.Font("StateOfDreaming", 1, 14)); // NOI18N
         jButton2.setText("dequeue");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,8 +81,14 @@ public class Cola extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+       Conectar.IngresarCola(Integer.parseInt(jTextField1.getText()));
+       jTextField1.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+      
+       
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -108,7 +120,7 @@ public class Cola extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Cola().setVisible(true);
+               // new Cola().setVisible(true);
             }
         });
     }

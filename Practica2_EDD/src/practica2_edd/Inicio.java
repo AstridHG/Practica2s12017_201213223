@@ -10,12 +10,15 @@ package practica2_edd;
  * @author Astrid Hernandez
  */
 public class Inicio extends javax.swing.JFrame {
-
+private  Conec Conectar;
     /**
      * Creates new form Inicio
      */
     public Inicio() {
         initComponents();
+        
+        Conectar = new Conec();
+        
     }
 
     /**
@@ -37,12 +40,22 @@ public class Inicio extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton1.setText("Lista");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton2.setText("Matriz Dispersa");
 
         jButton3.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton3.setText("Cola");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton4.setText("Pila");
@@ -85,6 +98,19 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+      Lista lista = new Lista(Conectar);
+      lista.setVisible(true);
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       Cola cola = new Cola(Conectar);
+      cola.setVisible(true);
+        
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
