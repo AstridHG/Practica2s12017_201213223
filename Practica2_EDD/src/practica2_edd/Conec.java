@@ -33,7 +33,9 @@ try {
             Request request = new Request.Builder().url(url).post(formBody).build();
             Response response = webClient.newCall(request).execute();
             String response_string = response.body().string();//y este seria el string de las respuesta
+            System.out.println(response_string);
             return response_string;
+           
         } catch (MalformedURLException ex) {
             System.out.println(ex.toString());
         } catch (IOException ex) {
@@ -116,7 +118,9 @@ public static String eliminarLista(int dato){
 try {
             URL url = new URL("http://0.0.0.0:5000/eliminarLista");
             Request request = new Request.Builder().url(url).post(formBody).build();
+            System.out.println(request);
             Response response = webClient.newCall(request).execute();
+           // System.out.println(response);
             String response_string = response.body().string();//y este seria el string de las respuesta
             return response_string;
         } catch (MalformedURLException ex) {
@@ -124,6 +128,7 @@ try {
         } catch (IOException ex) {
             System.out.println(ex.toString());
         }
+   
        return null;  
 }
 public static String SacarPila(){
