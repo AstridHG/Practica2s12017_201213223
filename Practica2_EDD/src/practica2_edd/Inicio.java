@@ -48,6 +48,11 @@ private  Conec Conectar;
 
         jButton2.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton2.setText("Matriz Dispersa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("StateOfDreaming", 0, 18)); // NOI18N
         jButton3.setText("Cola");
@@ -122,6 +127,11 @@ private  Conec Conectar;
       pila.setVisible(true);        
 // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       Matriz matriz = new Matriz(Conectar);
+       matriz.setVisible(true); // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
