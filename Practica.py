@@ -583,6 +583,31 @@ class Matriz:
     			te = te.abajo
 		return s
 
+	def GraficaMatriz(self):
+		dot = Digraph(comment = 'GraficaMatriz')
+		dot
+
+		aux= self.iniciofila
+		aux1 = self.iniciocolumna
+
+		if aux == None:
+			return "Matriz Vacia"
+
+		else:
+			while aux.siguiente !=None:
+				dot.Node(aux.entrada)
+				dot.Node(aux.siguiente.entrada)
+				dot.edge(str(aux.entrada), str(aux.siguiente.entrada))
+				aux = aux.siguiente
+			auxn = self.ultimofila
+			while auxn.anterior != None:
+				dot.Node(aux.entrada)
+				dot.Node(auxn.anterior.entrada)
+				dot.edge(str(auxn.entrada),str(auxn.anterior.entrada))
+				auxn = auxn.anterior
+			dot.render('test-output/Matriz.dot', view=False)
+
+
 	
 
 
@@ -688,6 +713,7 @@ def insertarMatriz():
 	filatemp = str(request.form["fila"])
 	columnatemp = str(request.form["columna"])
 	orden1temp = str(request.form["orden1"])
+	matriz.GraficaMatriz()
 	
 	return matriz.ingresarMatriz(entradatemp, filatemp, columnatemp, orden1temp)
 
