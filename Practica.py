@@ -20,7 +20,7 @@ class ListaSimple:
 	
 
 	def agregar(self, dato):
-	 c = 0
+	 
    	 if self.vacia() == True:
    	 	self.inicio = self.ultimo = Nodo(dato)
    
@@ -28,7 +28,7 @@ class ListaSimple:
    	 	aux = self.ultimo 
 
    	 	self.ultimo = aux.siguiente = Nodo(dato)
-   	 c = c + 1
+   	 
 
 
    	def recorrer(self):
@@ -110,7 +110,6 @@ class ListaSimple:
    		dot
    		
    		aux = self.inicio
-   		c = 0
    		if aux== None:
    			print "lista vacia"
    		
@@ -245,16 +244,17 @@ class Pila:
 
 class MatrizNodo:
 
-	def __init__(self, entrada, entradainicial, entradafinal):	
+	def __init__(self, entrada, entradainicial, entradafinal, orden):	
 		self.entrada = entrada
 		self.adelante = None
 		self.atras = None
 		self.arriba = None
 		self.abajo = None
-		self.derecha = None
-		self.izquierda = None
+		self.siguiente = None
+		self.anterior = None
 		self.entradainicial = entradainicial
 		self.entradafinal = entradafinal
+		self.orden = orden
 
 
 	
@@ -272,33 +272,332 @@ class Matriz:
 		return self.iniciofila == None
 
 
-	def ingresarMatriz(self, direccion, fila, columna):
+	def ingresarMatriz(self, direccion, fila, columna, orden1):
+		s = ""
 		if self.MatrizVacia() == True:
-			nue = MatrizNodo(direccion, None, None)
-			self.iniciofila = self.ultimofila = MatrizNodo(fila, None ,None)
-			self.iniciocolumna = self.ultimocolumna = MatrizNodo(columna, None, None)
+			nue = MatrizNodo(direccion, None, None , orden1)
+			self.iniciofila = self.ultimofila = MatrizNodo(fila, None ,None, None)
+			self.iniciocolumna = self.ultimocolumna = MatrizNodo(columna, None, None, orden1)
 			self.iniciofila.entradainicial = self.iniciofila.entradafinal = self.ultimofila.entradainicial = self.ultimofila.entradafinal = self.iniciocolumna.entradainicial = self.iniciocolumna.entradafinal= self.ultimocolumna.entradainicial = self.ultimocolumna.entradafinal = nue
   			self.iniciofila.abajo = self.ultimofila.abajo = self.iniciocolumna.siguiente = self.ultimocolumna.siguiente = nue
   			self.iniciofila.entradainicial.arriba = self.iniciofila.entradafinal.arriba = self.ultimofila.entradainicial.arriba = self.ultimofila.entradafinal.arriba = self.iniciofila
   			self.iniciocolumna.entradainicial.anterior = self.iniciocolumna.entradafinal.anterior = self.ultimocolumna.entradainicial.anterior = self.ultimocolumna.entradafinal.anterior = self.iniciocolumna
   			self.iniciofila.siguiente = self.ultimofila.siguiente = None
   			self.iniciocolumna.abajo = self.ultimocolumna.abajo = None
-  			return "Ingresado:" +nue.entrada + "Arriba:" +nue.arriba.entrada + "Anterior:" +nue.anterior.entrada
+  			return "Dato:" +nue.entrada + "Ar:" +nue.arriba.entrada + "An:" +nue.anterior.entrada
+  		
   		else:
-  			return "Matriz llena en su primera posicion"
+  			nuevaCabecera = MatrizNodo(fila, None, None, None)
+  			temp = self.iniciofila
+  			Creado = False
+  			while temp != None:
+  				if nuevaCabecera == temp.entrada:
+  					Creado = True
+  				temp = temp.siguiente
+
+  			if Creado == True:
+  				Creado = True
+  			else:
+  				nuevaCabecera.anterior = self.ultimofila
+  				self.ultimofila.siguiente = nuevaCabecera
+  				self.ultimofila = nuevaCabecera
+  				s = "Dominio Creado"
+
+  			nuevaCabeceraL = MatrizNodo(columna, None, None, orden1)
+  			templ = self.iniciocolumna
+  			CreadoL = False
+  			while templ != None:
+  				if int(templ.orden) == int(templ.orden):
+  					CreadoL = True
+  				templ = templ.abajo
+  			if CreadoL == True:
+  				s = s + "Letra encontrada"
+  			else:
+  				if int(orden1)< int(self.iniciocolumna.orden):
+  					tempm = self.iniciocolumna
+  					self.iniciocolumna = CreadoL
+  					self.iniciocolumna.abajo = tempm
+  					tempm.arriba = self.iniciocolumna
+  					s = s + "\n Se agrego Letra al inicio"
+
+  				elif int(orden1) > int(self.ultimocolumna.orden):
+  					CreadoL.arriba = self.ultimocolumna
+  					self.ultimocolumna.abajo = CreadoL
+  					self.ultimocolumna = CreadoL
+  					s = s + "\n Se agrego al final"
+  				else:
+  					tempm1 = self.iniciocolumna
+  					while tempm1 != None:
+  						if int(orden1)<int(tempm1.orden):
+  							CreadoL.arriba = tempm1.arriba
+  							tempm1.arriba.abajo = CreadoL
+  							CreadoL.abajo = tempm1
+  							tempm1.arriba = CreadoL
+  							CreadoLetra = True
+  							s = s + "\n Letra agregada"
+  							break
+  						tempm1 = tempm1.abajo
+
+  					if CreadoLetra ==True:
+  						s = s + "\n Se agrego antes la letra"
+  					else: 
+  						tempm2 = self.ultimocolumna
+  						while tempm2 != None:
+  							if int(orden1) > int(tempm2.orden):
+  								CreadoL.arriba = tempm2.arriba
+  								tempm2.arriba.abajo = CreadoL
+  								CreadoL.abajo = tempm2
+  								tempm2.arriba = CreadoL
+  								CreadoLetra = True
+  								s = s + "\nLetra Agregada"
+  								break
+  							tempm2 = tempm2.abajo
+       		nuevoIngreso = MatrizNodo(columna, None, None, orden1)
+
+       		te = self.iniciocolumna
+       		while te != None:
+       			if str(te.entrada)== str(columna):
+       				tef = self.iniciofila
+       				while tef != None:
+       					if str(tef.entrada) == str(fila):
+       						if te.entradainicial == None:
+       							if tef.entradainicial.entradainicial == None:
+       								te.entradainicial = te.entradafinal = tef.entradainicial = tef.entradafinal = nuevoIngreso
+       								te.siguiente = tef.abajo = nuevoIngreso
+       								nuevoIngreso.arriba = tef
+       								nuevoIngreso.anterior = te
+            						#
+            						s = "Ingresado:" + str(nuevoIngreso.entrada) + "Dominio:" + nuevoIngreso.arriba.entrada + "Letra:" + nuevoIngreso.anterior.entrada
+            				else:
+            					if int(orden1) < int(tef.entradainicial.orden):
+            						te.entradainicial = te.entradafinal = nuevoIngreso
+            						te.siguiente = nuevoIngreso
+            						nuevoIngreso.anterior = te
+            						tef.abajo = nuevoIngreso
+            						tef.entradainicial.arriba= nuevoIngreso
+            						nuevoIngreso.abajo = tef.entradainicial
+            						nuevoIngreso.arriba = tef
+            						tef.entradainicial = nuevoIngreso
+            						s = "Ingresado:" +str(nuevoIngreso.entrada) + "Arriba" + nuevoIngreso.arriba.entrada + "Letra" + nuevoIngreso.anterior.entrada
+            					elif int(orden1) > int(tef.entradafinal.orden):
+            						te.entradainicial = te.entradafinal = nuevoIngreso
+            						te.siguiente = nuevoIngreso
+            						nuevoIngreso.anterior = te
+            						nuevoIngreso.arriba = tef.entradafinal
+            						tef.entradafinal.abajo = nuevoIngreso
+            						tef.entradafinal = nuevoIngreso
+            						s = "Ingresado:" + str(nuevoIngreso.entrada) + "Arriba:"+nuevoIngreso.arriba.entrada + "Letra:" + nuevoIngreso.anterior.entrada
+            					else:
+            						nte = tef.entradainicial
+            						while nte != None:
+
+            							if int(orden1) < int(nte.orden):
+            								te.entradainicial = te.entradafinal = nuevoIngreso
+            								te.siguiente = nuevoIngreso
+            								nuevoIngreso.anterior = te
+            								nte.arriba.abajo = nuevoIngreso
+            								nuevoIngreso.arriba = nte.arriba
+            								nuevoIngreso.abajo = nte
+            								nte.arriba = nuevoIngreso
+            								s = "Ingresado:" +str(nuevoIngreso.entrada) + "Arriba:" +nuevoIngreso.arriba.entrada + "Letra:"+nuevoIngreso.anterior.entrada
+            							nte = nte.abajo
+            			else:
+            				if tef.entradainicial == None:
+            					te.entradafinal.siguiente = tef.entradainicial = tef.entradafinal = nuevoIngreso
+            					nuevoIngreso.anterior = te.entradafinal
+            					te.entradafinal = nuevoIngreso
+            					nuevoIngreso.arriba = tef
+
+            				else:
+            					ing = False
+            					tempm3 = tef.entradainicial
+            					while tempm3 != None:
+            						if str(tempm3.orden) == str(orend1):
+            							if tem.entradainicial == None:
+            								tempm3.entradainicial == tempm3.entradafinal == nuevoIngreso
+            								tempm3.atras = nuevoIngreso
+            								nuevoIngreso.adelante= tempm3
+            								ing = True
+            							else:
+            								tempm3.entradafinal.atras = nuevoIngreso
+            								nuevoIngreso.adelante = tempm3.entradafinal
+            								tempm3.entradafinal = nuevoIngreso
+            								ing = True
+            						tempm3 = tempm3.abajo
+            					if ing == False:
+            						if int(orden1) < int(tef.entradafinal.orden):
+            							nuevoIngreso.arriba = tef
+            							nuevoIngreso.abajo = tef.entradafinal
+            							tef.abajo = nuevoIngreso
+            							tef.entradafinal.arriba = nuevoIngreso
+            							ing = True
+            						elif int(orden1) > int(tef.entradafinal.orden):
+            							tef.entradafinal.abajo = nuevoIngreso
+            							nuevoIngreso.arriba = tef.entradafinal
+            							tef.entradafinal = nuevoIngreso
+            							ing = True
+            						else:
+            							p=tef.entradainicial
+            							while p != None:
+            								if int(orden1) < int(p.orden):
+            									p.arriba.abajo = nuevoIngreso
+            									nuevoIngreso.arriba = p.arriba 
+            									nuevoIngreso.abajo = p
+            									p.arriba = nuevoIngreso
+            									ing = True 
+            									break
+           										
+           									c = c.abajo
+           							if tef == self.iniciofila:
+           								sigm= False
+           								j = tef.siguiente
+           								while j != None:
+           									y = j.entradainicial
+           									while y !=None:
+           										if str(y.orden) == str(orden1):
+           											sigm = True
+            										break
+            									y = y.abajo
+            								j = j.siguiente
+            							if sigm == True:
+            								busc = True
+            								rec = tef.siguiente
+            								while rec != None:
+            									ss = rec.entradainicial
+            									if busc == True:
+            										while ss != None:
+            											if str(s.orden) == str(orden1):
+           													sigm = True
+           													busc = False
+           													if ss == te.entradainicial:
+           														ss.anterior.siguiente = nuevoIngreso
+           														nuevoIngreso.anterior = ss.anterior
+           														nuevoIngreso.siguiente = ss
+           														ss.anterior = nuevoIngreso
+           														te.entradainicial = nuevoIngreso
+           													else:
+           														ss.anterior.siguiente = nuevoIngreso
+           														nuevoIngreso.anterior = ss.anterior
+           														nuevoIngreso.siguiente = ss
+            													ss.anterior = nuevoIngreso
+
+            												
+            												
+            											ss = ss.abajo
+            									rec = rec.siguiente
+            					elif tef == self.ultimofila:
+            							sigm = False
+            							j = tef.anterior
+            							while j != None:
+            								y = j.entradainicial
+            								while y != None:
+            									if str(y.orden) == str (orden1):
+            										sigm = True
+            										break
+           										y = y.abajo
+           									j = j.anterior
+           								if sigm == True:
+           									busc = True
+           									r = tef.anterior
+           									while r != None:
+           										ss = r.entradainicial
+           										if busc == True:
+           											while ss != None:
+           												if str(s.orden) == str(orden1):
+           													sigm = True
+            												busc = False
+            												if ss == te.entradafinal:
+            													ss.siguiente = nuevoIngreso
+            													nuevoIngreso.anterior = ss
+            													te.entradafinal = nuevoIngreso
+            													s = "Ingresado" + nuevoIngreso.entrada+ "anterior" + nuevoIngreso.anterior.entrada + "siguiente: No tiene arriba" + nuevoIngreso.arriba.entrada
+            												break
+            											ss = s.abajo
+            									rec = rec.anterior
+            					else:
+            						ena = False
+            						ens = False
+
+            						j = tef.anterior
+            				 		while j != None:
+            							y = j.entradainicial
+            							while y != None:
+            								if str(y.orden) == str(orden1):
+            									ena = True
+            							    	break
+            							   	y = y.abajo
+
+            							  
+            							j = j.Anterior
+
+            						pe = tef.anterior
+            						while pe != None:
+            							t = pe.entradainicial
+            							while t != None:
+            								if str(t.orden) == str(orden1):
+            									ens = True
+            							    	break
+            							    	t = t.abajo
+            							pe = pe.siguiente
+            						busc2 = True
+            						if ena == True:
+            							j = tef.anterior
+            							while j != None:
+           								    if busc2 == True:
+            								   	y = j.entradainicial
+            								   	while y != None:
+            								   		if str(y.orden) == str(orden1):
+            								   			ena = True
+            								   			busc2 = False
+            							    			nuevoIngreso.anterior = y
+            							    			nuevoIngreso.siguiente = y.siguiente
+            							    			y.siguiente.anterior = nuevoIngreso
+            							    			y.siguiente = nuevoIngreso
+            							    			s = "Se ingreso:" +nuevoIngreso.entrada + "anterior" +nuevoIngreso.anterior.entrada
+            							    			break
+            							    		y = y.abajo
+            							  	  	j = j.anterior
+            						busc2 = True
+
+            						if ens == True:
+            							j = tef.siguiente
+            							while j != None:
+            								if busc2 == True:
+            								   	y = j.entradainicial
+            							    	while y != None:
+            							    		if  str(y.orden) == str(orden1):
+            							    			ens = True
+            							    			busc2 = False
+            							    			nuevoIngreso.anterior = y.anterior
+            							    			y.anterior.siguiente = nuevoIngreso
+            							    			y.anterior = nuevoIngreso
+            							    			nuevoIngreso.siguiente = y
+            							    			break
+           								    		y = y.abajo
+           								   		j = j.siguiente
+            						else:
+            							nuevoIngreso = None
+            							s = s + "no tiene siguiente"
+
+            			tef = tef.siguiente
+    			te = te.abajo
+		return s
+
+	
 
 
-  	def recorrerMatriz(self):
-  		s = ""
-  		nue1 = self.iniciofila
-  		while nue1 != None:
-  			s = s + "Dominio:" +nue1.entrada
-  			nue1 = nue1.siguiente
-  		nue1 = self.iniciocolumna
-  		while nue2 != None:
-  			s = s + "Letra:" + nue2.entrada
-  			nue2 = nue2.abajo
-  		return s    
+
+
+
+
+
+
+
+
+
+
+
+  	
 
 			
 lis = ListaSimple()
@@ -388,7 +687,9 @@ def insertarMatriz():
 	entradatemp = str(request.form["entrada"])
 	filatemp = str(request.form["fila"])
 	columnatemp = str(request.form["columna"])
-	return matriz.ingresarMatriz(entradatemp, filatemp, columnatemp)
+	orden1temp = str(request.form["orden1"])
+	
+	return matriz.ingresarMatriz(entradatemp, filatemp, columnatemp, orden1temp)
 
 	
 	 

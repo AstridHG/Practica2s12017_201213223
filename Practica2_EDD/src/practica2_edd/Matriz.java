@@ -1,23 +1,29 @@
 package practica2_edd;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Astrid Hernandez
- */
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
+
+ 
 public class Matriz extends javax.swing.JFrame {
-private  Conec Conectar;
-    /**
-     * Creates new form Matriz
-     */
-    public Matriz(Conec Conectar) {
+
+     public static OkHttpClient webClient = new OkHttpClient();
+    public Matriz() {
         initComponents();
-        this.Conectar = Conectar;
+      
     }
 
     /**
@@ -156,10 +162,150 @@ private  Conec Conectar;
        Inicio ini = new Inicio();
        ini.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
-
+public String metodoWS(String metodo, RequestBody formBody) {
+        try {
+            URL url = new URL("http://localhost:5000/insertarMatriz");
+            Request request = new Request.Builder().url(url).post(formBody).build();
+            Response response = webClient.newCall(request).execute();//Aqui obtiene la respuesta en dado caso si hayas pues un return en python
+            String response_string = response.body().string();//y este seria el string de las respuesta
+            return response_string;
+        } catch (MalformedURLException ex) {
+            java.util.logging.Logger.getLogger(Practica2_EDD.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(Practica2_EDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       Conectar.ingresarMatriz(jTextField3.getText());
-        jTextField3.setText("");
+   String nombre = "";
+        String fila = "";
+        String letra = "";
+        String nletra = ""; 
+        int contadorArroba = 0;
+        String correo = jTextField3.getText();
+
+        for (int i = 0; i < correo.length() - 1; i++) {
+            char c = correo.charAt(i);
+            if (c == '@') {
+                break;
+            } else {
+                contadorArroba++;
+            }
+
+        }
+
+        for (int i = 0; i < contadorArroba; i++) {
+            nombre = nombre + correo.charAt(i);
+        }
+        for (int i = contadorArroba + 1; i < correo.length(); i++) {
+            fila = fila + correo.charAt(i);
+        }
+        letra = letra + correo.charAt(0);
+        switch (letra.toLowerCase()) {
+            case "a":
+                nletra = "1";
+                break;
+            case "b":
+                nletra = "2";
+                break;
+            case "c":
+                nletra = "3";
+                break;
+            case "d":
+                nletra = "4";
+                break;
+            case "e":
+                nletra = "5";
+                break;
+            case "f":
+                nletra = "6";
+                break;
+            case "g":
+                nletra = "7";
+                break;
+            case "h":
+                nletra = "8";
+                break;
+            case "i":
+                nletra = "9";
+                break;
+            case "j":
+                nletra = "10";
+                break;
+            case "k":
+                nletra = "11";
+                break;
+            case "l":
+                nletra= "12";
+                break;
+            case "m":
+                nletra = "13";
+                break;
+            case "n":
+                nletra = "14";
+                break;
+            case "ñ":
+                nletra = "15";
+                break;
+            case "o":
+                nletra = "16";
+                break;
+            case "p":
+                nletra = "17";
+                break;
+            case "q":
+                nletra = "18";
+                break;
+            case "r":
+                nletra = "19";
+                break;
+            case "s":
+                nletra = "20";
+                break;
+            case "t":
+                nletra = "21";
+                break;
+            case "u":
+                nletra = "22";
+                break;
+            case "v":
+                nletra = "23";
+                break;
+            case "w":
+                nletra= "24";
+                break;
+            case "x":
+                nletra = "25";
+                break;
+            case "y":
+                nletra = "26";
+                break;
+            case "z":
+                nletra = "27";
+                break;
+        }
+        System.out.println("valor " + contadorArroba);
+        System.out.println("Nombre: " + nombre + "  @algo: " + fila + "  L: " + correo.charAt(0));
+
+        if (nombre.equals("") || fila.equals("")) {
+            JOptionPane.showMessageDialog(this, "Correo Invalido", "Estructura de Datos", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+
+            RequestBody formBody = new FormEncodingBuilder()
+                    .add("entrada", correo)
+                    .add("fila", fila)
+                    .add("columna", letra)
+                    .add("orden1", nletra)
+                    .build();
+            String r = metodoWS("insertarMatriz", formBody);
+
+            System.out.println(r);
+
+            jTextField3.setText("");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -192,7 +338,7 @@ private  Conec Conectar;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // new Matriz().setVisible(true);
+               new Matriz().setVisible(true);
             }
         });
     }

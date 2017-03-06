@@ -158,6 +158,7 @@ public static String ingresarMatriz(String entrada){
                 .add("entrada", entrada)
                 .add("fila", entrada)
                 .add("columna",entrada)
+                .add("orden1", entrada)
                 .build();
 try {
             URL url = new URL("http://0.0.0.0:5000/insertarMatriz");

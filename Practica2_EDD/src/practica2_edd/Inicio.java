@@ -129,7 +129,7 @@ private  Conec Conectar;
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       Matriz matriz = new Matriz(Conectar);
+       Matriz matriz = new Matriz();
        matriz.setVisible(true); // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
